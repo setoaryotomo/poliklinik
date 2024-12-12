@@ -27,7 +27,7 @@ cd poliklinik
 ### 3. Import Database
 Import database poli.db
 
-Aplikasi akan dapat diakses di [http://localhost/poliklinik](http://localhost:poliklinik).
+Aplikasi dapat diakses di [http://localhost/poliklinik](http://localhost:poliklinik).
 
 ## Admin
 Admin login melalui login dokter
