@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Waktu pembuatan: 31 Des 2023 pada 11.43
--- Versi server: 10.4.21-MariaDB
--- Versi PHP: 7.4.23
+-- Host: localhost
+-- Generation Time: Dec 12, 2024 at 11:52 AM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `poli_bk`
+-- Database: `poli`
 --
+CREATE DATABASE IF NOT EXISTS `poli` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `poli`;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `daftar_poli`
+-- Table structure for table `daftar_poli`
 --
 
 CREATE TABLE `daftar_poli` (
@@ -37,16 +39,18 @@ CREATE TABLE `daftar_poli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `daftar_poli`
+-- Dumping data for table `daftar_poli`
 --
 
 INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`, `status_periksa`) VALUES
-(1, 6, 4, 'badan pegal tidak sembuh sembuh', 1, '1');
+(1, 6, 4, 'badan pegal tidak sembuh sembuh', 1, '1'),
+(2, 7, 5, 'capek', 1, '1'),
+(3, 7, 4, 'sakit', 2, '0');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_periksa`
+-- Table structure for table `detail_periksa`
 --
 
 CREATE TABLE `detail_periksa` (
@@ -56,16 +60,18 @@ CREATE TABLE `detail_periksa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `detail_periksa`
+-- Dumping data for table `detail_periksa`
 --
 
 INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 2, 3),
+(3, 2, 4);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `dokter`
+-- Table structure for table `dokter`
 --
 
 CREATE TABLE `dokter` (
@@ -78,17 +84,20 @@ CREATE TABLE `dokter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `dokter`
+-- Dumping data for table `dokter`
 --
 
 INSERT INTO `dokter` (`id`, `nama`, `password`, `alamat`, `no_hp`, `id_poli`) VALUES
 (8, 'coba', 'c3ec0f7b054e729c5a716c8125839829', 'jln jauh', '123456789', 1),
-(9, 'Atha Ardisa', '372abfc34766d2ac7c195105e4d1ef8d', 'Jl. Tembalang Barat 02', '082136565346', 3);
+(9, 'budi', 'c3ec0f7b054e729c5a716c8125839829', 'Jl. Sidomukti', '085111', 1),
+(10, 'aryo', '2ec87599180c059aa5444292cd98c5ff', 'jalan', '123', 6),
+(13, 'eko', 'b7a2c3b25c9441b0a38d0a874ace268b', 'jalan', '09876543', 1),
+(14, 'aji', '81dc9bdb52d04dc20036dbd8313ed055', 'jl.jalan123', '1234', 2);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_periksa`
+-- Table structure for table `jadwal_periksa`
 --
 
 CREATE TABLE `jadwal_periksa` (
@@ -100,17 +109,19 @@ CREATE TABLE `jadwal_periksa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `jadwal_periksa`
+-- Dumping data for table `jadwal_periksa`
 --
 
 INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
 (4, 9, 'Senin', '15:00:00', '20:00:00'),
-(5, 8, 'Rabu', '17:35:00', '21:35:00');
+(5, 8, 'Rabu', '17:35:00', '21:35:00'),
+(6, 8, 'Kamis', '16:50:00', '16:56:00'),
+(7, 10, 'Senin', '11:50:00', '11:53:00');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `obat`
+-- Table structure for table `obat`
 --
 
 CREATE TABLE `obat` (
@@ -121,18 +132,18 @@ CREATE TABLE `obat` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `obat`
+-- Dumping data for table `obat`
 --
 
 INSERT INTO `obat` (`id`, `nama_obat`, `kemasan`, `harga`) VALUES
-(1, 'Albendasol suspensi 200 mg/5 ml', 'Ktk 10 btl @ 10 ml', 6000),
-(3, 'Alprazolam tablet 1 mg', 'ktk 10 x 10 tablet', 118000),
-(4, 'Amilorida tablet 5 mg', 'ktk 10 x 10 table', 12000);
+(1, 'Albendasol', 'Kotak 10 botol @ 10 ml', 6500),
+(3, 'Alprazolam', 'tablet 1 mg', 120000),
+(4, 'Amilorida ', 'tablet 5 mg', 15000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pasien`
+-- Table structure for table `pasien`
 --
 
 CREATE TABLE `pasien` (
@@ -146,17 +157,21 @@ CREATE TABLE `pasien` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `pasien`
+-- Dumping data for table `pasien`
 --
 
 INSERT INTO `pasien` (`id`, `nama`, `password`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
-(5, 'atha', '25d55ad283aa400af464c76d713c07ad', 'jauh disana', '098', '09876543', '202312-001'),
-(6, 'test', '25d55ad283aa400af464c76d713c07ad', 'disana', '123', '08976543', '202312-002');
+(5, 'tomo', '25d55ad283aa400af464c76d713c07ad', 'jauh', '098123', '09876543', '202312-001'),
+(6, 'test', '25d55ad283aa400af464c76d713c07ad', 'disana', '123', '08976543', '202312-002'),
+(7, 'seto', '202cb962ac59075b964b07152d234b70', 'jalan', '12345', '123', '202412-003'),
+(8, 'ryan', '202cb962ac59075b964b07152d234b70', 'jalanan', '54321', '12345', '202412-004'),
+(9, 'ahmad', '202cb962ac59075b964b07152d234b70', 'jalan321', '11111', '123', '202412-005'),
+(11, 'ardian', '202cb962ac59075b964b07152d234b70', 'jl.jalan', '321', '12345', '202412-006');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `periksa`
+-- Table structure for table `periksa`
 --
 
 CREATE TABLE `periksa` (
@@ -168,16 +183,17 @@ CREATE TABLE `periksa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `periksa`
+-- Dumping data for table `periksa`
 --
 
 INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`) VALUES
-(1, 1, '2023-12-31 17:39:00', 'rematik, harus banyak olahraga, tetapi jgn langsung olahraga berat', 150000);
+(1, 1, '2023-12-31 17:39:00', 'rematik, harus banyak olahraga, tetapi jgn langsung olahraga berat', 150000),
+(2, 2, '2024-12-02 16:28:00', 'baik', 150000);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `poli`
+-- Table structure for table `poli`
 --
 
 CREATE TABLE `poli` (
@@ -187,17 +203,16 @@ CREATE TABLE `poli` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data untuk tabel `poli`
+-- Dumping data for table `poli`
 --
 
 INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
-(1, 'Klinik Akupuntur', 'Klinik akupuntur adalah fasilitas kesehatan yang menyediakan layanan terapi akupuntur. Akupuntur merupakan suatu metode pengobatan tradisional yang berasal dari Tiongkok, di mana jarum-tipis dimasukkan ke dalam titik-titik tertentu pada tubuh untuk merangsang energi vital atau \"qi\" guna memulihkan keseimbangan tubuh dan mengatasi berbagai masalah kesehatan.'),
-(2, 'Klinik Anak', 'Klinik anak adalah pusat pelayanan kesehatan yang khusus menangani masalah kesehatan anak-anak. Para dokter dan perawat di klinik anak memiliki keahlian dalam merawat dan mengobati berbagai kondisi medis yang biasanya terkait dengan perkembangan dan pertumbuhan anak-anak, mulai dari bayi hingga remaja.'),
-(3, 'Klinik Bedah', 'Klinik bedah adalah fasilitas medis di mana prosedur bedah dilakukan. Ini bisa mencakup berbagai jenis operasi, mulai dari tindakan minor seperti pengangkatan kista hingga prosedur bedah mayor seperti pembedahan organ internal. Tim medis di klinik bedah terdiri dari ahli bedah, perawat bedah, dan personel pendukung lainnya.'),
-(4, 'Klinik Bedah Saraf', 'Klinik bedah saraf adalah unit spesialis dalam bidang bedah yang fokus pada sistem saraf. Di sini, dokter bedah saraf menangani berbagai gangguan saraf, seperti tumor otak, cedera saraf tulang belakang, atau gangguan saraf perifer. Pelayanan di klinik ini mencakup diagnosis, pengobatan, dan pemulihan pasien dengan masalah neurologis.'),
-(5, 'Klinik Gigi', 'Klinik gigi adalah fasilitas pelayanan kesehatan oral yang menyediakan perawatan gigi dan mulut. Dokter gigi di klinik ini menangani berbagai masalah mulai dari pencegahan, perawatan gigi berlubang, hingga prosedur kosmetik seperti pemutihan gigi dan pemasangan kawat gigi. Klinik gigi juga dapat memberikan edukasi mengenai kebersihan gigi dan perawatan rutin.'),
-(6, 'Klinik Forensik', 'Klinik Forensik adalah fasilitas kesehatan yang khusus menyediakan pelayanan medis terkait dengan bidang forensik atau ilmu hukum. Klinik ini berfokus pada penerapan pengetahuan medis untuk membantu proses penyelidikan hukum dan peradilan. Pelayanan klinik forensik mencakup pemeriksaan medis terhadap korban kejahatan atau orang yang meninggal secara tiba-tiba, penilaian cedera, identifikasi mayat, pengumpulan bukti medis, serta memberikan kesaksian ahli di pengadilan. Klinik forensik berperan penting dalam mendukung sistem peradilan dan menyediakan informasi medis yang kritis untuk penyelidikan hukum.'),
-(7, 'Klinik Olahraga', 'Klinik Olahraga adalah fasilitas kesehatan yang secara khusus menyediakan pelayanan medis dan rehabilitasi untuk atlet dan individu yang terlibat dalam aktivitas fisik intensif atau olahraga. Klinik ini memiliki tim profesional yang terlatih dalam merawat cedera olahraga, memberikan perawatan fisioterapi, melibatkan program latihan khusus, serta memberikan saran untuk meningkatkan kinerja atlet.'),
+(1, 'Klinik Akupuntur', 'Klinik akupuntur adalah fasilitas kesehatan yang menyediakan layanan terapi akupuntur.'),
+(2, 'Klinik Anak', 'Klinik anak adalah pusat pelayanan kesehatan yang khusus menangani masalah kesehatan anak-anak.'),
+(3, 'Klinik Bedah', 'Klinik bedah adalah fasilitas medis di mana prosedur bedah dilakukan.'),
+(4, 'Klinik Bedah Saraf', 'Klinik bedah saraf adalah unit spesialis dalam bidang bedah yang fokus pada sistem saraf.'),
+(5, 'Klinik Gigi', 'Klinik gigi adalah fasilitas pelayanan kesehatan oral yang menyediakan perawatan gigi dan mulut.'),
+(6, 'Klinik Forensik', 'Klinik Forensik adalah fasilitas kesehatan yang khusus menyediakan pelayanan medis terkait dengan bidang forensik atau ilmu hukum.'),
 (9, 'Klinik Saraf', 'Klinik Saraf adalah fasilitas pelayanan kesehatan yang secara khusus fokus pada diagnosis, pengobatan, dan manajemen berbagai gangguan dan penyakit yang berkaitan dengan sistem saraf. ');
 
 --
@@ -205,7 +220,7 @@ INSERT INTO `poli` (`id`, `nama_poli`, `keterangan`) VALUES
 --
 
 --
--- Indeks untuk tabel `daftar_poli`
+-- Indexes for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
   ADD PRIMARY KEY (`id`),
@@ -213,7 +228,7 @@ ALTER TABLE `daftar_poli`
   ADD KEY `fk_daftarPoli_pasien` (`id_pasien`);
 
 --
--- Indeks untuk tabel `detail_periksa`
+-- Indexes for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
   ADD PRIMARY KEY (`id`),
@@ -221,128 +236,128 @@ ALTER TABLE `detail_periksa`
   ADD KEY `fk_detailPeriksa_obat` (`id_obat`);
 
 --
--- Indeks untuk tabel `dokter`
+-- Indexes for table `dokter`
 --
 ALTER TABLE `dokter`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_dokter_poli` (`id_poli`);
 
 --
--- Indeks untuk tabel `jadwal_periksa`
+-- Indexes for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_jadwal_dokter` (`id_dokter`);
 
 --
--- Indeks untuk tabel `obat`
+-- Indexes for table `obat`
 --
 ALTER TABLE `obat`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pasien`
+-- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `periksa`
+-- Indexes for table `periksa`
 --
 ALTER TABLE `periksa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_periksa_daftarPoli` (`id_daftar_poli`);
 
 --
--- Indeks untuk tabel `poli`
+-- Indexes for table `poli`
 --
 ALTER TABLE `poli`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `daftar_poli`
+-- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_periksa`
+-- AUTO_INCREMENT for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `dokter`
+-- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_periksa`
+-- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `obat`
+-- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `pasien`
+-- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT untuk tabel `periksa`
+-- AUTO_INCREMENT for table `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `poli`
+-- AUTO_INCREMENT for table `poli`
 --
 ALTER TABLE `poli`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `daftar_poli`
+-- Constraints for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
   ADD CONSTRAINT `fk_daftarPoli_jadwal` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal_periksa` (`id`),
   ADD CONSTRAINT `fk_daftarPoli_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `detail_periksa`
+-- Constraints for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
   ADD CONSTRAINT `fk_detailPeriksa_obat` FOREIGN KEY (`id_obat`) REFERENCES `obat` (`id`),
   ADD CONSTRAINT `fk_detailPeriksa_periksa` FOREIGN KEY (`id_periksa`) REFERENCES `periksa` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `dokter`
+-- Constraints for table `dokter`
 --
 ALTER TABLE `dokter`
   ADD CONSTRAINT `fk_dokter_poli` FOREIGN KEY (`id_poli`) REFERENCES `poli` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `jadwal_periksa`
+-- Constraints for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
   ADD CONSTRAINT `fk_jadwal_dokter` FOREIGN KEY (`id_dokter`) REFERENCES `dokter` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `periksa`
+-- Constraints for table `periksa`
 --
 ALTER TABLE `periksa`
   ADD CONSTRAINT `fk_periksa_daftarPoli` FOREIGN KEY (`id_daftar_poli`) REFERENCES `daftar_poli` (`id`);
