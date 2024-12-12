@@ -1,8 +1,6 @@
 **Tugas 1 BK Web Developer**
 
-Nama  : Seto Aryotomo
-NIM   : A11.2021.13747
-Kelas : WD05
+Seto Aryotomo (A11.2021.13747 / WD05)
 
 # Instalasi dan Konfigurasi Proyek Poliklinik
 
