@@ -2,12 +2,11 @@
 
 Seto Aryotomo (A11.2021.13747 / WD05)
 
-# Instalasi dan Konfigurasi Proyek Poliklinik
+# Instalasi dan Konfigurasi
 
 ## Prasyarat
 Sebelum memulai instalasi, pastikan Anda telah memenuhi prasyarat berikut:
 - PHP versi 8.2 atau lebih baru
-- Composer versi terbaru
 - Database MySQL (phpmyadmin)
 - Web server seperti XAMPP
 
