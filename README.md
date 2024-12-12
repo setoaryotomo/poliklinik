@@ -31,6 +31,6 @@ Aplikasi akan dapat diakses di [http://localhost/poliklinik](http://localhost:po
 
 ## Admin
 Admin login melalui login dokter
-username : admin
-password : admin
+- username : admin
+- password : admin
 
