@@ -92,6 +92,12 @@
                                 <p>Riwayat Pasien <span class="right badge badge-success">Dokter</span></p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="dokter.php" class="nav-link">
+                                <i class="fas fa-solid fa-book-medical nav-icon"></i>
+                                <p>Akun <span class="right badge badge-success">Dokter</span></p>
+                            </a>
+                        </li>
                     </ul>
                     <?php } else if($_SESSION['akses'] == "pasien"){?>
                     <ul class="nav nav-treeview">

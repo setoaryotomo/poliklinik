@@ -1,7 +1,7 @@
 <?php
     require 'config/koneksi.php';
     $id = $_GET['id'];
-    $ambilDetail = mysqli_query($mysqli, "SELECT daftar_poli.id as idDaftarPoli, poli.nama_poli, dokter.nama, jadwal_periksa.hari, DATE_FORMAT(jadwal_periksa.jam_mulai, '%H:%i') as jamMulai, DATE_FORMAT(jadwal_periksa.jam_selesai, '%H:%i') as jamSelesai, daftar_poli.no_antrian FROM daftar_poli INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE daftar_poli.id = '$id'");
+    $ambilDetail = mysqli_query($mysqli, "SELECT daftar_poli.id as idDaftarPoli, poli.nama_poli, dokter.nama, jadwal_periksa.hari, DATE_FORMAT(jadwal_periksa.jam_mulai, '%H:%i') as jamMulai, DATE_FORMAT(jadwal_periksa.jam_selesai, '%H:%i') as jamSelesai, daftar_poli.status_periksa ,daftar_poli.no_antrian FROM daftar_poli INNER JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id INNER JOIN dokter ON jadwal_periksa.id_dokter = dokter.id INNER JOIN poli ON dokter.id_poli = poli.id WHERE daftar_poli.id = '$id'");
     $data = mysqli_fetch_assoc($ambilDetail);
 ?>
 
@@ -16,9 +16,10 @@
                     <div class="card-body pt-0">
                         <div class="row">
                             <div class="col-7">
-                                <h2 class="lead"><b><?php echo $data['nama'] ?></b></h2>
+                                <h2 class="lead"><b>Dokter : <?php echo $data['nama'] ?></b></h2>
                                 <h6 class="text-muted text-lg">Poli <?php echo $data['nama_poli'] ?></h6>
                                 <h6 class="text-muted text-lg"><?php echo $data['hari'] ?></h6>
+                                <h6 class="text-muted text-lg">Status : <?php echo $data['status_periksa'] ?></h6>
                                 <ul class="ml-4 mb-0 fa-ul text-muted">
                                     <li class="large"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span>
                                         <?php echo $data['jamMulai'] ?> - <?php echo $data['jamSelesai'] ?></li>

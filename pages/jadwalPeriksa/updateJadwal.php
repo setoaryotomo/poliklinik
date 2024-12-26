@@ -28,7 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $resultOverlap = mysqli_query($mysqli,$queryOverlap);
     
     if (mysqli_num_rows($resultOverlap)>0) {
-        echo '<script>alert("Dokter lain telah mengambil jadwal ini");window.location.href="../../jadwalPeriksa.php";</script>';
+        // echo '<script>alert("Dokter lain telah mengambil jadwal ini");window.location.href="../../jadwalPeriksa.php";</script>';
+        echo '<script>window.location.href="../../jadwalPeriksa.php";</script>';
     }
     else{
         // Query untuk menambahkan data obat ke dalam tabel
