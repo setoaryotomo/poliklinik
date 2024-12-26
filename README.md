@@ -1,4 +1,4 @@
-**Tugas 1 BK Web Developer**
+**Tugas BK Web Developer**
 
 Seto Aryotomo (A11.2021.13747 / WD05)
 
