@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 12, 2024 at 11:52 AM
+-- Generation Time: Dec 26, 2024 at 11:08 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,7 +45,8 @@ CREATE TABLE `daftar_poli` (
 INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`, `status_periksa`) VALUES
 (1, 6, 4, 'badan pegal tidak sembuh sembuh', 1, '1'),
 (2, 7, 5, 'capek', 1, '1'),
-(3, 7, 4, 'sakit', 2, '0');
+(3, 7, 4, 'sakit', 2, '0'),
+(4, 7, 14, 'gigi sakit', 1, '1');
 
 -- --------------------------------------------------------
 
@@ -66,7 +67,9 @@ CREATE TABLE `detail_periksa` (
 INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
 (1, 1, 1),
 (2, 2, 3),
-(3, 2, 4);
+(3, 2, 4),
+(4, 3, 1),
+(5, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -92,7 +95,9 @@ INSERT INTO `dokter` (`id`, `nama`, `password`, `alamat`, `no_hp`, `id_poli`) VA
 (9, 'budi', 'c3ec0f7b054e729c5a716c8125839829', 'Jl. Sidomukti', '085111', 1),
 (10, 'aryo', '2ec87599180c059aa5444292cd98c5ff', 'jalan', '123', 6),
 (13, 'eko', 'b7a2c3b25c9441b0a38d0a874ace268b', 'jalan', '09876543', 1),
-(14, 'aji', '81dc9bdb52d04dc20036dbd8313ed055', 'jl.jalan123', '1234', 2);
+(14, 'aji', '81dc9bdb52d04dc20036dbd8313ed055', 'jl.jalan123', '1234', 2),
+(15, 'dokter', '202cb962ac59075b964b07152d234b70', 'dokter', '123', 1),
+(17, 'tomoo', '202cb962ac59075b964b07152d234b70', 'jl.jalan', '123', 3);
 
 -- --------------------------------------------------------
 
@@ -105,18 +110,23 @@ CREATE TABLE `jadwal_periksa` (
   `id_dokter` int(11) NOT NULL,
   `hari` enum('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu') NOT NULL,
   `jam_mulai` time NOT NULL,
-  `jam_selesai` time NOT NULL
+  `jam_selesai` time NOT NULL,
+  `aktif` char(1) NOT NULL DEFAULT 'N'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jadwal_periksa`
 --
 
-INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
-(4, 9, 'Senin', '15:00:00', '20:00:00'),
-(5, 8, 'Rabu', '17:35:00', '21:35:00'),
-(6, 8, 'Kamis', '16:50:00', '16:56:00'),
-(7, 10, 'Senin', '11:50:00', '11:53:00');
+INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `aktif`) VALUES
+(4, 9, 'Senin', '15:00:00', '20:00:00', '0'),
+(5, 8, 'Rabu', '17:35:00', '21:35:00', 'Y'),
+(6, 8, 'Kamis', '16:50:00', '16:56:00', 'N'),
+(7, 10, 'Senin', '11:50:00', '11:53:00', 'Y'),
+(8, 8, 'Jumat', '16:30:00', '17:30:00', 'N'),
+(9, 10, 'Kamis', '10:48:00', '12:48:00', 'N'),
+(14, 17, 'Senin', '12:21:00', '13:21:00', 'N'),
+(15, 17, 'Selasa', '12:33:00', '14:33:00', 'Y');
 
 -- --------------------------------------------------------
 
@@ -188,7 +198,8 @@ CREATE TABLE `periksa` (
 
 INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`) VALUES
 (1, 1, '2023-12-31 17:39:00', 'rematik, harus banyak olahraga, tetapi jgn langsung olahraga berat', 150000),
-(2, 2, '2024-12-02 16:28:00', 'baik', 150000);
+(2, 2, '2024-12-02 16:28:00', 'baik', 150000),
+(3, 4, '2024-12-26 12:34:00', 'subah baik', 150000);
 
 -- --------------------------------------------------------
 
@@ -282,25 +293,25 @@ ALTER TABLE `poli`
 -- AUTO_INCREMENT for table `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `dokter`
 --
 ALTER TABLE `dokter`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `obat`
@@ -318,7 +329,7 @@ ALTER TABLE `pasien`
 -- AUTO_INCREMENT for table `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `poli`
